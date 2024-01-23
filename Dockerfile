@@ -92,6 +92,9 @@ ARG kramdown_asciidoc_version=2.1.0
 ARG asciidoctor_bibtex_version=0.8.0
 ARG asciidoctor_kroki_version=0.9.1
 ARG asciidoctor_reducer_version=1.0.2
+# Install WaveDrom - @see: https://github.com/wavedrom/wavedrom, https://github.com/wavedrom/cli
+ARG wavedrom_version="3.2.0"
+ARG wavedrom_cli_version="3.1.1"
 
 ENV ASCIIDOCTOR_CONFLUENCE_VERSION=${asciidoctor_confluence_version} \
   ASCIIDOCTOR_DIAGRAM_VERSION=${asciidoctor_diagram_version} \
@@ -142,8 +145,18 @@ ENV PIPX_MAN_DIR=/usr/local/share/man
 ## Always use the latest dependencies versions available for the current Alpine distribution
 # hadolint ignore=DL3018,DL3013
 RUN apk add --no-cache \
+    nodejs \
+    'chromium~=120.0.6099' \
     pipx \
     py3-pip \
+    && apk --no-cache --virtual .nodejsyarndepends add \
+        build-base \
+        cairo-dev \
+        pango-dev \
+        libjpeg-turbo-dev \
+        giflib-dev \
+        yarn  \
+        npm \
   && apk add --no-cache --virtual .pythonmakedepends \
     build-base \
     freetype-dev \
@@ -156,7 +169,11 @@ RUN apk add --no-cache \
   ;do pipx install --system-site-packages --pip-args='--no-cache-dir' "${pipx_app}"; \
   # Pin pillow to 9.5.0 as per https://github.com/asciidoctor/docker-asciidoctor/pull/403#issuecomment-1894323894
   pipx runpip "$(echo "$pipx_app" | cut -d'[' -f1)" install Pillow==9.5.0; done \
-&& apk del -r --no-cache .pythonmakedepends
+&& apk del -r --no-cache .pythonmakedepends \
+  && echo "Install wavedrom@${wavedrom_version}, wavedrom-cli@${wavedrom_cli_version}" \
+    && yarn global add \
+        "wavedrom@${wavedrom_version}" \
+        "wavedrom-cli@${wavedrom_cli_version}"
 
 COPY --from=a2s-builder /app/a2s /usr/local/bin/
 COPY --from=erd-builder /app/erd-go /usr/local/bin/

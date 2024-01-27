@@ -1,3 +1,8 @@
+:source-highlighter: coderay
+:coderay-linenums-mode: inline
+:listing-caption: Listing
+
+
 = Sample with Wavedrom
 
 Sample with multiple diagrams and a wavedrom diagram.
@@ -57,3 +62,56 @@ digraph foo {
 ....
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+== Code Examples
+
+
+=== C Code
+
+.Some C Code.
+[source,c,linenums]
+----
+// File: User.c
+#define HELLO_WORLD 1
+const int a = HELLO_WORLD;
+
+----
+
+=== Cpp Code
+
+.Some Cpp Code.
+[source,cpp,linenums]
+----
+// File: User.cpp
+class User {
+    String username;
+}
+----
+
+=== Python Code
+
+.Some Python Code
+[source,python,linenums]
+----
+# File: User.python
+def ascii(document:str):
+	print(document)
+----
+
+
+=== Ruby Code
+
+.Some Ruby Code
+[%linenums,ruby]
+----
+ORDERED_LIST_KEYWORDS = {
+  'loweralpha' => 'a',
+  'lowerroman' => 'i',
+  'upperalpha' => 'A',
+  'upperroman' => 'I'
+   #'lowergreek' => 'a'
+   #'arabic'     => '1'
+   #'decimal'    => '1'
+}
+----

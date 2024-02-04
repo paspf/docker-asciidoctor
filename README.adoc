@@ -59,7 +59,7 @@ docker build -t asciidoctor-wd .
 
 Remember the tag and the hash of your container, which is displayed after its creation.
 
-Run container:
+Run container and mount the `tests` directory:
 
 [source,bash]
 ----
